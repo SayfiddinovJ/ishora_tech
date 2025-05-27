@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ishora_tech/data/models/word_model.dart';
 import 'package:ishora_tech/routes/app_route.dart';
+import 'package:ishora_tech/ui/drawer/drawer_screen.dart';
 import 'package:ishora_tech/ui/widgets/main_button.dart';
 import 'package:ishora_tech/utils/app_colors/app_colors.dart';
 import 'package:ishora_tech/utils/extensions/extensions.dart';
@@ -63,7 +64,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      drawer: DrawerScreen(),
+      drawerScrimColor: Colors.white,
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: AppColors.backgroundColor,
         title: const Text("Asosiy"),
         titleTextStyle: TextStyle(
