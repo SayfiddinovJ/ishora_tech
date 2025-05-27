@@ -29,7 +29,7 @@ class SplashScreen extends StatelessWidget {
   }
 
   _navigateToApp(BuildContext context) {
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 2), () {
       context.mounted
           ? Navigator.pushReplacementNamed(context, RouteNames.app)
           : null;

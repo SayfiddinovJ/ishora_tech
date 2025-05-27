@@ -20,7 +20,7 @@ class DictionaryScreen extends StatelessWidget {
           },
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
         ),
-        title: Text('Lu\'g\'at'),
+        title: Text('Lug\'at'),
         titleTextStyle: TextStyle(
           color: Colors.white,
           fontSize: 18.sp,
@@ -56,7 +56,7 @@ class DictionaryScreen extends StatelessWidget {
                     Icon(Icons.search, color: Color(0xFF011F4B), size: 24.sp),
                     10.pw,
                     Text(
-                      'Qidiruv',
+                      'Qidiruv...',
                       style: TextStyle(
                         color: Color(0xFF434D65),
                         fontSize: 16.sp,

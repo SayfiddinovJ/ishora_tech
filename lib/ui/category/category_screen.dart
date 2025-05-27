@@ -22,7 +22,7 @@ class CategoryScreen extends StatelessWidget {
           },
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
         ),
-        title: Text('Category'),
+        title: Text('To\'plamlar'),
         titleTextStyle: TextStyle(
           color: Colors.white,
           fontSize: 18.sp,
