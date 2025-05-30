@@ -10,42 +10,56 @@ class DrawerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: Column(
-        children: [
-          DrawerHeader(
-            decoration: BoxDecoration(color: AppColors.backgroundColor),
+      backgroundColor: Colors.white,
+      child: Builder(
+        builder: (drawerContext) {
+          return SafeArea(
             child: Column(
               children: [
-                Flexible(child: Image.asset(AppImages.logo)),
-                20.ph,
-                Flexible(child: Image.asset(AppImages.techText)),
+                DrawerHeader(
+                  decoration: BoxDecoration(color: AppColors.backgroundColor),
+                  child: Column(
+                    children: [
+                      Flexible(child: Image.asset(AppImages.logo)),
+                      20.ph,
+                      Flexible(child: Image.asset(AppImages.techText)),
+                    ],
+                  ),
+                ),
+                ListTile(
+                  title: Text('Telegram channel'),
+                  leading: Icon(Icons.telegram),
+                  onTap: () async {
+                    final Uri telegramUrl = Uri.parse(
+                      'https://t.me/IshoraTech',
+                    );
+                    if (await canLaunchUrl(telegramUrl)) {
+                      await launchUrl(telegramUrl);
+                    } else if (context.mounted) {
+                      ScaffoldMessenger.of(drawerContext).showSnackBar(
+                        const SnackBar(content: Text('Linkni ochib bo‘lmadi')),
+                      );
+                    }
+                    context.mounted ? Navigator.pop(context) : null;
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.share),
+                  title: Text('Share'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(drawerContext).showSnackBar(
+                      const SnackBar(content: Text('Sahifa hali mavjud emas')),
+                    );
+                  },
+                ),
+                const Spacer(),
+                Center(child: Text('Version 1.0.0')),
+                10.ph,
               ],
             ),
-          ),
-          ListTile(
-            title: Text('Telegram channel'),
-            leading: Icon(Icons.telegram),
-            onTap: () async {
-              final Uri telegramUrl = Uri.parse('https://t.me/IshoraTech');
-              if (await canLaunchUrl(telegramUrl)) {
-                await launchUrl(telegramUrl);
-              } else if (context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Linkni ochib bo‘lmadi')),
-                );
-              }
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.share),
-            title: Text('Share'),
-            onTap: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Sahifa hali mavjud emas')),
-              );
-            },
-          ),
-        ],
+          );
+        },
       ),
     );
   }

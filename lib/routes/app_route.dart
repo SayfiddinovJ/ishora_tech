@@ -22,36 +22,53 @@ class RouteNames {
 
 class AppRoutes {
   static Route generateRoute(RouteSettings settings) {
+    Widget page;
     switch (settings.name) {
       case RouteNames.splashScreen:
-        return MaterialPageRoute(builder: (context) => const SplashScreen());
+        page = const SplashScreen();
+        break;
       case RouteNames.app:
-        return MaterialPageRoute(builder: (context) => const App());
+        page = const App();
+        break;
       case RouteNames.home:
-        return MaterialPageRoute(builder: (context) => const HomeScreen());
+        page = const HomeScreen();
+        break;
       case RouteNames.dictionary:
-        return MaterialPageRoute(
-          builder: (context) => const DictionaryScreen(),
-        );
+        page = const DictionaryScreen();
+        break;
       case RouteNames.category:
-        return MaterialPageRoute(builder: (context) => const CategoryScreen());
+        page = const CategoryScreen();
+        break;
       case RouteNames.words:
-        return MaterialPageRoute(builder: (context) => const WordsScreen());
+        page = const WordsScreen();
+        break;
       case RouteNames.search:
-        return MaterialPageRoute(
-          builder: (context) => const RealTimeSearchPage(),
-        );
+        page = const RealTimeSearchPage();
+        break;
       case RouteNames.details:
-        return MaterialPageRoute(
-          builder:
-              (context) => DetailsScreen(word: settings.arguments as WordModel),
-        );
+        page = DetailsScreen(word: settings.arguments as WordModel);
+        break;
       default:
-        return MaterialPageRoute(
-          builder:
-              (context) =>
-                  const Scaffold(body: Center(child: Text("Route not found!"))),
+        page = const Scaffold(
+          body: Center(child: Text("Route not found!")),
         );
     }
+
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0); // O'ngdan chapga slaydlash
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        final offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+    );
   }
 }

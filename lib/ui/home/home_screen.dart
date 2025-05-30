@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       drawer: DrawerScreen(),
-      drawerScrimColor: Colors.white,
+      drawerScrimColor: Colors.transparent,
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: AppColors.backgroundColor,
