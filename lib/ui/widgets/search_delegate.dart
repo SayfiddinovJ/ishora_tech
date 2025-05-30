@@ -60,12 +60,15 @@ class _RealTimeSearchPageState extends State<RealTimeSearchPage> {
         children: [
           Padding(
             padding: const EdgeInsets.all(12.0),
-            child: TextField(
-              decoration: const InputDecoration(
-                labelText: 'So‘zni kiriting...',
-                prefixIcon: Icon(Icons.search),
+            child: Hero(
+              tag: 'search',
+              child: TextField(
+                decoration: const InputDecoration(
+                  labelText: 'So‘zni kiriting...',
+                  prefixIcon: Icon(Icons.search),
+                ),
+                onChanged: _filterWords,
               ),
-              onChanged: _filterWords,
             ),
           ),
           Expanded(

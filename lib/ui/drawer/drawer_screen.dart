@@ -54,7 +54,7 @@ class DrawerScreen extends StatelessWidget {
                   },
                 ),
                 const Spacer(),
-                Center(child: Text('Version 1.0.0')),
+                Center(child: Text('Version 1.0.1')),
                 10.ph,
               ],
             ),

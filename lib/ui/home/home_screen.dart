@@ -102,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            10.ph,
+            15.ph,
             selectedWord == null
                 ? const Center(child: CircularProgressIndicator())
                 : Container(
