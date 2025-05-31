@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ishora_tech/app/app.dart';
-import 'package:ishora_tech/data/models/word_model.dart';
 import 'package:ishora_tech/ui/category/category_screen.dart';
-import 'package:ishora_tech/ui/details/details_screen.dart';
 import 'package:ishora_tech/ui/dictionary/dictionary_screen.dart';
 import 'package:ishora_tech/ui/home/home_screen.dart';
 import 'package:ishora_tech/ui/splash/splash_screen.dart';
-import 'package:ishora_tech/ui/widgets/search_delegate.dart';
+import 'package:ishora_tech/ui/search/search_screen.dart';
 import 'package:ishora_tech/ui/words/words_screen.dart';
 
 class RouteNames {
@@ -16,7 +14,6 @@ class RouteNames {
   static const String dictionary = "/dictionary";
   static const String category = "/category";
   static const String words = "/words";
-  static const String details = "/details";
   static const String search = "/search";
 }
 
@@ -43,10 +40,7 @@ class AppRoutes {
         page = const WordsScreen();
         break;
       case RouteNames.search:
-        page = const RealTimeSearchPage();
-        break;
-      case RouteNames.details:
-        page = DetailsScreen(word: settings.arguments as WordModel);
+        page = const SearchScreen();
         break;
       default:
         page = const Scaffold(

@@ -14,7 +14,12 @@ class WordBloc extends Bloc<WordEvent, WordState> {
   WordBloc(this.wordRepository)
     : super(
         WordState(
-          wordModel: WordModel(word: '', category: '', videoUrl: ''),
+          wordModel: WordModel(
+            word: '',
+            category: '',
+            videoUrl: '',
+            definition: '',
+          ),
           wordsList: [],
           status: Status.pure,
           error: '',

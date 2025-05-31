@@ -4,11 +4,25 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ishora_tech/bloc/word_bloc.dart';
 import 'package:ishora_tech/data/models/word_model.dart';
 import 'package:ishora_tech/data/status.dart';
-import 'package:ishora_tech/routes/app_route.dart';
+import 'package:ishora_tech/ui/widgets/search_delegate.dart';
+import 'package:ishora_tech/ui/widgets/word_tile.dart';
 import 'package:ishora_tech/utils/app_colors/app_colors.dart';
 
-class WordsScreen extends StatelessWidget {
+class WordsScreen extends StatefulWidget {
   const WordsScreen({super.key});
+
+  @override
+  State<WordsScreen> createState() => _WordsScreenState();
+}
+
+class _WordsScreenState extends State<WordsScreen> {
+  List<WordModel> words = [];
+
+  @override
+  void initState() {
+    words = BlocProvider.of<WordBloc>(context).state.wordsList;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +42,14 @@ class WordsScreen extends StatelessWidget {
           fontSize: 18.sp,
           fontWeight: FontWeight.w700,
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search, color: Colors.white),
+            onPressed: () {
+              showSearch(context: context, delegate: WordSearchDelegate(words));
+            },
+          ),
+        ],
       ),
       body: BlocBuilder<WordBloc, WordState>(
         builder: (context, state) {
@@ -44,16 +66,7 @@ class WordsScreen extends StatelessWidget {
                   itemCount: state.wordsList.length,
                   itemBuilder: (context, index) {
                     WordModel word = state.wordsList[index];
-                    return ListTile(
-                      title: Text(word.word),
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          RouteNames.details,
-                          arguments: word,
-                        );
-                      },
-                    );
+                    return WordTile(word: word);
                   },
                 );
           }

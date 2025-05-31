@@ -7,6 +7,7 @@ import 'package:ishora_tech/data/models/word_model.dart';
 import 'package:ishora_tech/routes/app_route.dart';
 import 'package:ishora_tech/ui/drawer/drawer_screen.dart';
 import 'package:ishora_tech/ui/widgets/main_button.dart';
+import 'package:ishora_tech/ui/widgets/shimmer.dart';
 import 'package:ishora_tech/utils/app_colors/app_colors.dart';
 import 'package:ishora_tech/utils/extensions/extensions.dart';
 import 'package:video_player/video_player.dart';
@@ -35,7 +36,9 @@ class _HomeScreenState extends State<HomeScreen> {
     );
     final List<dynamic> data = jsonDecode(response);
     final List<WordModel> words =
-        data.map((json) => WordModel.fromJson(json)).toList();
+        data.map((json) {
+          return WordModel.fromJson(json);
+        }).toList();
 
     words.shuffle(); // tasodifiy aralashtiramiz
     selectedWord = words.first; // birinchi elementni tanlaymiz
@@ -104,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             15.ph,
             selectedWord == null
-                ? const Center(child: CircularProgressIndicator())
+                ? const VideoShimmer()
                 : Container(
                   padding: EdgeInsets.all(12.w),
                   margin: EdgeInsets.all(12.w),
@@ -118,10 +121,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         aspectRatio: _controller.value.aspectRatio,
                         child: VideoPlayer(_controller),
                       ),
+                      10.ph,
                       Container(
                         width: double.infinity,
                         padding: EdgeInsets.all(12.w),
-                        margin: EdgeInsets.all(12.w),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10.r),
@@ -136,9 +139,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               'To\'plam: ${selectedWord!.word}',
                               style: TextStyle(fontWeight: FontWeight.w700),
                             ),
+                            const Divider(),
+                            Text(
+                              'Ta\'rif: ${selectedWord!.definition}',
+                              style: TextStyle(fontWeight: FontWeight.w700),
+                            ),
                           ],
                         ),
                       ),
+                      10.ph,
                       Container(
                         padding: EdgeInsets.all(5.w),
                         decoration: BoxDecoration(

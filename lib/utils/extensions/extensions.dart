@@ -6,3 +6,9 @@ extension Space on num {
 
   SizedBox get pw => SizedBox(width: toDouble().w);
 }
+
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+  }
+}

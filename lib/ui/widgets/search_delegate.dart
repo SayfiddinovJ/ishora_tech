@@ -1,100 +1,94 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ishora_tech/data/models/word_model.dart';
-import 'package:ishora_tech/routes/app_route.dart';
+import 'package:ishora_tech/ui/widgets/word_tile.dart';
+import 'package:ishora_tech/utils/app_colors/app_colors.dart';
 
-class RealTimeSearchPage extends StatefulWidget {
-  const RealTimeSearchPage({super.key});
+class WordSearchDelegate extends SearchDelegate<WordModel> {
+  final List<WordModel> wordList;
 
-  @override
-  State<RealTimeSearchPage> createState() => _RealTimeSearchPageState();
-}
-
-class _RealTimeSearchPageState extends State<RealTimeSearchPage> {
-  List<WordModel> allWords = [];
-  List<WordModel> filteredWords = [];
+  WordSearchDelegate(this.wordList);
 
   @override
-  void initState() {
-    super.initState();
-    loadWords();
-  }
-
-  Future<void> loadWords() async {
-    final String response = await rootBundle.loadString(
-      'assets/word/word.json',
+  ThemeData appBarTheme(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    return theme.copyWith(
+      appBarTheme: theme.appBarTheme.copyWith(
+        backgroundColor: AppColors.backgroundColor,
+        iconTheme: const IconThemeData(color: Colors.white),
+        actionsIconTheme: const IconThemeData(color: Colors.white),
+      ),
+      inputDecorationTheme: const InputDecorationTheme(
+        hintStyle: TextStyle(color: Colors.white54),
+      ),
+      textTheme: TextTheme(
+        titleLarge: TextStyle(color: Colors.white, fontSize: 18.sp),
+      ),
+      scaffoldBackgroundColor: Colors.white,
     );
-    final List<dynamic> data = jsonDecode(response);
-    final words = data.map((json) => WordModel.fromJson(json)).toList();
-
-    setState(() {
-      allWords = words;
-      filteredWords = words; // boshlanishda hammasini ko‘rsatish
-    });
-  }
-
-  void _filterWords(String query) {
-    final results =
-        allWords.where((word) {
-          return word.word.toLowerCase().contains(query.toLowerCase());
-        }).toList();
-
-    setState(() {
-      filteredWords = results;
-    });
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: Icon(Icons.arrow_back_ios),
-        ),
-        title: const Text("Qidiruv"),
-        scrolledUnderElevation: 0,
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: const Icon(Icons.clear, color: Colors.white),
+        onPressed: () {
+          query = '';
+        },
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Hero(
-              tag: 'search',
-              child: TextField(
-                decoration: const InputDecoration(
-                  labelText: 'So‘zni kiriting...',
-                  prefixIcon: Icon(Icons.search),
-                ),
-                onChanged: _filterWords,
-              ),
-            ),
-          ),
-          Expanded(
-            child:
-                filteredWords.isEmpty
-                    ? const Center(child: Text("Hech narsa topilmadi"))
-                    : ListView.builder(
-                      itemCount: filteredWords.length,
-                      itemBuilder: (context, index) {
-                        final word = filteredWords[index];
-                        return ListTile(
-                          title: Text(word.word),
-                          subtitle: Text(word.category),
-                          onTap: () {
-                            Navigator.pushNamed(
-                              context,
-                              RouteNames.details,
-                              arguments: word,
-                            );
-                          },
-                        );
-                      },
-                    ),
-          ),
-        ],
-      ),
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: const Icon(Icons.arrow_back, color: Colors.white),
+      onPressed: () {
+        close(
+          context,
+          WordModel(word: '', category: '', videoUrl: '', definition: ''),
+        );
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    final filteredWordList =
+        wordList
+            .where(
+              (word) => word.word.toLowerCase().contains(query.toLowerCase()),
+            )
+            .toList();
+
+    return ListView.builder(
+      itemCount: filteredWordList.length,
+      itemBuilder: (context, index) {
+        final word = filteredWordList[index];
+        return WordTile(word: word);
+      },
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    final suggestionList =
+        query.isEmpty
+            ? wordList
+            : wordList
+                .where(
+                  (word) =>
+                      word.word.toLowerCase().contains(query.toLowerCase()),
+                )
+                .toList();
+
+    return ListView.builder(
+      itemCount: suggestionList.length,
+      itemBuilder: (context, index) {
+        final word = suggestionList[index];
+        return WordTile(word: word);
+      },
     );
   }
 }
