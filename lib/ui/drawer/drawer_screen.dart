@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ishora_tech/utils/app_colors/app_colors.dart';
 import 'package:ishora_tech/utils/app_images/app_images.dart';
 import 'package:ishora_tech/utils/extensions/extensions.dart';
@@ -10,7 +11,7 @@ class DrawerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.backgroundColor,
       child: Builder(
         builder: (drawerContext) {
           return SafeArea(
@@ -28,7 +29,12 @@ class DrawerScreen extends StatelessWidget {
                 ),
                 ListTile(
                   title: Text('Telegram channel'),
-                  leading: Icon(Icons.telegram),
+                  titleTextStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  leading: Icon(Icons.telegram, color: Colors.white),
                   onTap: () async {
                     final Uri telegramUrl = Uri.parse(
                       'https://t.me/IshoraTech',
@@ -44,8 +50,13 @@ class DrawerScreen extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.share),
+                  leading: Icon(Icons.share, color: Colors.white),
                   title: Text('Share'),
+                  titleTextStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
                   onTap: () {
                     Navigator.pop(context);
                     ScaffoldMessenger.of(drawerContext).showSnackBar(
@@ -54,7 +65,12 @@ class DrawerScreen extends StatelessWidget {
                   },
                 ),
                 const Spacer(),
-                Center(child: Text('Version 1.0.1')),
+                Center(
+                  child: Text(
+                    'Version 1.0.2',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
                 10.ph,
               ],
             ),

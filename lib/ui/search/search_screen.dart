@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:ishora_tech/data/models/word_model.dart';
 import 'package:ishora_tech/ui/widgets/dialog.dart';
+import 'package:ishora_tech/utils/extensions/extensions.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -60,15 +61,12 @@ class _SearchScreenState extends State<SearchScreen> {
         children: [
           Padding(
             padding: const EdgeInsets.all(12.0),
-            child: Hero(
-              tag: 'search',
-              child: TextField(
-                decoration: const InputDecoration(
-                  labelText: 'So‘zni kiriting...',
-                  prefixIcon: Icon(Icons.search),
-                ),
-                onChanged: _filterWords,
+            child: TextField(
+              decoration: const InputDecoration(
+                labelText: 'Qidiruv...',
+                prefixIcon: Icon(Icons.search),
               ),
+              onChanged: _filterWords,
             ),
           ),
           Expanded(
@@ -80,8 +78,8 @@ class _SearchScreenState extends State<SearchScreen> {
                       itemBuilder: (context, index) {
                         final word = filteredWords[index];
                         return ListTile(
-                          title: Text(word.word),
-                          subtitle: Text(word.category),
+                          title: Text(word.word.capitalize()),
+                          subtitle: Text(word.category.capitalize()),
                           onTap: () {
                             showVideoDialog(context, word);
                           },

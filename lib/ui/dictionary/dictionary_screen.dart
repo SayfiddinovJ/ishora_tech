@@ -42,31 +42,28 @@ class DictionaryScreen extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(context, RouteNames.search);
               },
-              child: Hero(
-                tag: 'search',
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(vertical: 10.h),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(Icons.search, color: Color(0xFF011F4B), size: 24.sp),
-                      10.pw,
-                      Text(
-                        'Qidiruv...',
-                        style: TextStyle(
-                          color: Color(0xFF434D65),
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(vertical: 10.h),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(Icons.search, color: Color(0xFF011F4B), size: 24.sp),
+                    10.pw,
+                    Text(
+                      'Qidiruv...',
+                      style: TextStyle(
+                        color: Color(0xFF434D65),
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w400,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),

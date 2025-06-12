@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ishora_tech/data/models/word_model.dart';
+import 'package:ishora_tech/utils/app_colors/app_colors.dart';
 import 'package:ishora_tech/utils/extensions/extensions.dart';
 import 'package:video_player/video_player.dart';
 
@@ -11,7 +12,7 @@ void showVideoDialog(BuildContext context, WordModel word) {
     context: context,
     builder: (context) {
       return Dialog(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.backgroundColor,
         insetPadding: EdgeInsets.all(16.w),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.r),
@@ -63,24 +64,20 @@ void showVideoDialog(BuildContext context, WordModel word) {
                                 : controller.value.isPlaying
                                 ? Icons.pause
                                 : Icons.play_arrow,
+                            color: Colors.white,
                           ),
                         ),
-                        const Divider(),
                         Text(
                           word.word.capitalize(),
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: Colors.white,
                           ),
-                        ),
-                        Text(
-                          'To\'plam: ${word.category.capitalize()}',
-                          style: TextStyle(color: Colors.black),
                         ),
                         const Divider(),
                         Text(
                           'Ta\'rif: ${word.definition.capitalize()}',
-                          style: TextStyle(color: Colors.black),
+                          style: TextStyle(color: Colors.white),
                         ),
                       ],
                     ),
@@ -96,7 +93,7 @@ void showVideoDialog(BuildContext context, WordModel word) {
                   5.ph,
                   Text(
                     'Video yuklanmoqda...',
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Colors.white),
                   ),
                   10.ph,
                 ],
