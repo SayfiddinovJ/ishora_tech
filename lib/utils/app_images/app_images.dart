@@ -61,7 +61,7 @@ List<String> names = [
   'Daktil alifbosi',
   'Hayvonlar',
   'Aqliy faoliyat',
-  'Busines',
+  'Biznes',
   'Kalendar',
   'Kiyinish',
   'Ranglar',
@@ -78,5 +78,6 @@ List<String> names = [
   'Maktab',
   'Vaqt va fasllar',
   'Sport',
-  'Tabiat hodisalari',
+  'Tabiyat hodisalari',
 ];
+// Huquq, Raqamlar, His tuyg'ular, Busines

@@ -44,7 +44,7 @@ class CategoryScreen extends StatelessWidget {
               return InkWell(
                 onTap: () {
                   context.read<WordBloc>().add(
-                    GetEvent(categoryName: names[index].toLowerCase()),
+                    GetEvent(categoryName: names[index].toLowerCase().replaceAll('\'', '')),
                   );
                   Navigator.pushNamed(context, RouteNames.words);
                 },

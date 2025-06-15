@@ -107,10 +107,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             15.ph,
             selectedWord == null
-                ? const VideoShimmer()
+                ? Padding(
+                  padding: EdgeInsets.all(8.w),
+                  child: const VideoShimmer(),
+                )
                 : Container(
                   padding: EdgeInsets.all(12.w),
-                  margin: EdgeInsets.all(12.w),
+                  margin: EdgeInsets.all(5.w),
                   decoration: BoxDecoration(
                     color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.circular(10.r),
