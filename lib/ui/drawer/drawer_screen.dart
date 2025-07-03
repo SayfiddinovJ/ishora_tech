@@ -28,7 +28,7 @@ class DrawerScreen extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  title: Text('Telegram channel'),
+                  title: Text('Telegram kanal'),
                   titleTextStyle: TextStyle(
                     color: Colors.white,
                     fontSize: 18.sp,
@@ -51,7 +51,22 @@ class DrawerScreen extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(Icons.share, color: Colors.white),
-                  title: Text('Share'),
+                  title: Text('Ilovani ulashish'),
+                  titleTextStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(drawerContext).showSnackBar(
+                      const SnackBar(content: Text('Sahifa hali mavjud emas')),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.star_rate_outlined, color: Colors.white),
+                  title: Text('Ilovani baholang'),
                   titleTextStyle: TextStyle(
                     color: Colors.white,
                     fontSize: 18.sp,
@@ -67,7 +82,7 @@ class DrawerScreen extends StatelessWidget {
                 const Spacer(),
                 Center(
                   child: Text(
-                    'Version 1.0.2',
+                    'Versiya 1.0.3',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

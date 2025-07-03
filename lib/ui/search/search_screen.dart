@@ -15,6 +15,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   List<WordModel> allWords = [];
   List<WordModel> filteredWords = [];
+  FocusNode focusNode = FocusNode();
 
   @override
   void initState() {
@@ -62,6 +63,7 @@ class _SearchScreenState extends State<SearchScreen> {
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: TextField(
+              focusNode: focusNode,
               decoration: const InputDecoration(
                 labelText: 'Qidiruv...',
                 prefixIcon: Icon(Icons.search),

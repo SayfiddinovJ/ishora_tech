@@ -5,8 +5,23 @@ import 'package:ishora_tech/utils/app_colors/app_colors.dart';
 import 'package:ishora_tech/utils/app_images/app_images.dart';
 import 'package:ishora_tech/utils/extensions/extensions.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  // _init() async {
+  //   _navigateToApp(context);
+  // }
+  //
+  // @override
+  // void initState() {
+  //   _init();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +43,9 @@ class SplashScreen extends StatelessWidget {
     );
   }
 
-  _navigateToApp(BuildContext context) {
+  _navigateToApp(context) {
     Future.delayed(const Duration(seconds: 2), () {
-      context.mounted
-          ? Navigator.pushReplacementNamed(context, RouteNames.app)
-          : null;
+      Navigator.pushReplacementNamed(context, RouteNames.app);
     });
   }
 }
