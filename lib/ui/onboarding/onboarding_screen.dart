@@ -95,7 +95,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         StorageRepository.putBool('isUserEntered', true);
                         Navigator.pushNamedAndRemoveUntil(
                           context,
-                          RouteNames.home,
+                          Routes.home,
                           (route) => false,
                         );
                       } else {

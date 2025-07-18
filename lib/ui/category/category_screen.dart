@@ -46,7 +46,7 @@ class CategoryScreen extends StatelessWidget {
                   context.read<WordBloc>().add(
                     GetEvent(categoryName: names[index].toLowerCase().replaceAll('\'', '')),
                   );
-                  Navigator.pushNamed(context, RouteNames.words);
+                  Navigator.pushNamed(context, Routes.words);
                 },
                 child: Card(
                   color: Color(0xFFFEF7FF),

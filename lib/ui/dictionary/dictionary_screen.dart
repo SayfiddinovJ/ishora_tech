@@ -40,7 +40,7 @@ class DictionaryScreen extends StatelessWidget {
             20.ph,
             GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, RouteNames.search);
+                Navigator.pushNamed(context, Routes.search);
               },
               child: Container(
                 width: double.infinity,

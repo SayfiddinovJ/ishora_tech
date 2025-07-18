@@ -44,8 +44,8 @@ class MyApp extends StatelessWidget {
           title: 'IshoraTech',
           themeMode: ThemeMode.system,
           debugShowCheckedModeBanner: false,
-          initialRoute: RouteNames.splashScreen,
-          onGenerateRoute: AppRoutes.generateRoute,
+          initialRoute: Routes.splash,
+          onGenerateRoute: Pages.onGeneratingRoute,
         );
       },
     );

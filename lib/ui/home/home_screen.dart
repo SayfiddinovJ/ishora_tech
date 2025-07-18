@@ -139,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     title: 'To\'plamlar',
                     icon: Icons.folder_copy_outlined,
                     onTap: () {
-                      Navigator.pushNamed(context, RouteNames.category);
+                      Navigator.pushNamed(context, Routes.category);
                     },
                     color: Colors.white,
                   ),
