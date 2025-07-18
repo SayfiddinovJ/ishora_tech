@@ -5,7 +5,6 @@ void mySnackBar(context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       padding: EdgeInsets.all(10.w),
-      margin: EdgeInsets.all(10.w),
       content: Text(message),
       duration: Duration(seconds: 2),
     ),

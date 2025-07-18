@@ -68,7 +68,21 @@ void showVideoDialog(BuildContext context, WordModel word) {
                           ),
                         ),
                         Text(
-                          word.word.capitalize(),
+                          'UZ: ${word.word.capitalize()}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text(
+                          'KR: ${word.wordUzCyrillic.capitalize()}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text(
+                          'RU: ${word.wordRu.capitalize()}',
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -77,6 +91,14 @@ void showVideoDialog(BuildContext context, WordModel word) {
                         const Divider(),
                         Text(
                           'Ta\'rif: ${word.definition.capitalize()}',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Text(
+                          'Тариф: ${word.definitionUzCyrillic.capitalize()}',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Text(
+                          'Oпределение: ${word.definitionRu.capitalize()}',
                           style: TextStyle(color: Colors.white),
                         ),
                       ],

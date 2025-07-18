@@ -130,6 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     title: 'Tarjimon',
                     icon: Icons.translate,
                     onTap: () {
+                      // Navigator.pushNamed(context, Routes.translator);
                       mySnackBar(context, 'Sahifa hali mavjud emas');
                     },
                     color: AppColors.backgroundColor,

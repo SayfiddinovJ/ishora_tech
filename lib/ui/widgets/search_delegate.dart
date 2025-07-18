@@ -47,7 +47,16 @@ class WordSearchDelegate extends SearchDelegate<WordModel> {
       onPressed: () {
         close(
           context,
-          WordModel(word: '', category: '', videoUrl: '', definition: ''),
+          WordModel(
+            word: '',
+            category: '',
+            videoUrl: '',
+            definition: '',
+            wordUzCyrillic: '',
+            definitionUzCyrillic: '',
+            wordRu: '',
+            definitionRu: '',
+          ),
         );
       },
     );

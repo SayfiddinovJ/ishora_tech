@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ishora_tech/bloc/word_bloc.dart';
+import 'package:ishora_tech/bloc/word/word_bloc.dart';
 import 'package:ishora_tech/data/models/word_model.dart';
 import 'package:ishora_tech/data/status.dart';
 import 'package:ishora_tech/ui/widgets/search_delegate.dart';

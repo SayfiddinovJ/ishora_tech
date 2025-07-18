@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:ishora_tech/utils/app_colors/app_colors.dart';
 import 'package:ishora_tech/utils/app_images/app_images.dart';
 import 'package:ishora_tech/utils/extensions/extensions.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DrawerScreen extends StatelessWidget {
@@ -58,31 +60,36 @@ class DrawerScreen extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   ),
                   onTap: () {
-                    Navigator.pop(context);
-                    ScaffoldMessenger.of(drawerContext).showSnackBar(
-                      const SnackBar(content: Text('Sahifa hali mavjud emas')),
+                    SharePlus.instance.share(
+                      ShareParams(
+                        uri: Uri.parse(
+                          'https://play.google.com/store/apps/details?id=uz.translator.ishora_tech',
+                        ),
+                      ),
                     );
+                    Navigator.pop(context);
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.star_rate_outlined, color: Colors.white),
-                  title: Text('Ilovani baholang'),
+                  title: Text('Ilovani baholash'),
                   titleTextStyle: TextStyle(
                     color: Colors.white,
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w700,
                   ),
-                  onTap: () {
+                  onTap: () async {
                     Navigator.pop(context);
-                    ScaffoldMessenger.of(drawerContext).showSnackBar(
-                      const SnackBar(content: Text('Sahifa hali mavjud emas')),
-                    );
+                    final InAppReview inAppReview = InAppReview.instance;
+                    if (await inAppReview.isAvailable()) {
+                      inAppReview.requestReview();
+                    }
                   },
                 ),
                 const Spacer(),
                 Center(
                   child: Text(
-                    'Versiya 1.0.3',
+                    'Ilova versiyasi: 1.0.4',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

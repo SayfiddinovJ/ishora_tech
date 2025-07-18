@@ -6,6 +6,7 @@ import 'package:ishora_tech/ui/home/home_screen.dart';
 import 'package:ishora_tech/ui/onboarding/onboarding_screen.dart';
 import 'package:ishora_tech/ui/search/search_screen.dart';
 import 'package:ishora_tech/ui/splash/splash_screen.dart';
+import 'package:ishora_tech/ui/translator/translator_screen.dart';
 import 'package:ishora_tech/ui/words/words_screen.dart';
 
 class Routes {
@@ -14,7 +15,7 @@ class Routes {
   static const onboarding = '/onboarding';
   static const home = '/home';
   static const category = '/category';
-  static const dictionary = '/dictionary';
+  static const translator = '/translator';
   static const words = '/words';
   static const search = '/search';
 }
@@ -34,6 +35,10 @@ class Pages {
         );
       case Routes.category:
         return CupertinoPageRoute(builder: (context) => const CategoryScreen());
+      case Routes.translator:
+        return CupertinoPageRoute(
+          builder: (context) => const TranslatorScreen(),
+        );
       case Routes.words:
         return CupertinoPageRoute(builder: (context) => const WordsScreen());
       case Routes.search:
