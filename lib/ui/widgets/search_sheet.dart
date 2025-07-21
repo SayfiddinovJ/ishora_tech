@@ -48,58 +48,60 @@ class _SearchSheetState extends State<SearchSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return DraggableScrollableSheet(
-      expand: false,
-      initialChildSize: 0.9,
-      builder:
-          (context, scrollController) => Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-            ),
-            child: Column(
-              children: [
-                Container(
-                  width: 40,
-                  height: 4,
-                  margin: const EdgeInsets.only(bottom: 12),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[400],
-                    borderRadius: BorderRadius.circular(8),
+    return SafeArea(
+      child: DraggableScrollableSheet(
+        expand: false,
+        initialChildSize: 0.9,
+        builder:
+            (context, scrollController) => Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    width: 40,
+                    height: 4,
+                    margin: const EdgeInsets.only(bottom: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[400],
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
-                ),
-                TextField(
-                  decoration: const InputDecoration(
-                    hintText: 'Qidiruv...',
-                    prefixIcon: Icon(Icons.search),
+                  TextField(
+                    decoration: const InputDecoration(
+                      hintText: 'Qidiruv...',
+                      prefixIcon: Icon(Icons.search),
+                    ),
+                    onChanged: _filterWords,
                   ),
-                  onChanged: _filterWords,
-                ),
-                const SizedBox(height: 12),
-                Expanded(
-                  child:
-                      filteredWords.isEmpty
-                          ? const Center(child: Text("Hech narsa topilmadi"))
-                          : ListView.builder(
-                            controller: scrollController,
-                            itemCount: filteredWords.length,
-                            itemBuilder: (context, index) {
-                              final word = filteredWords[index];
-                              return ListTile(
-                                title: Text(word.word.capitalize()),
-                                subtitle: Text(word.category.capitalize()),
-                                onTap: () {
-                                  Navigator.pop(context); // bottomSheet yopish
-                                  showVideoDialog(context, word);
-                                },
-                              );
-                            },
-                          ),
-                ),
-              ],
+                  const SizedBox(height: 12),
+                  Expanded(
+                    child:
+                        filteredWords.isEmpty
+                            ? const Center(child: Text("Hech narsa topilmadi"))
+                            : ListView.builder(
+                              controller: scrollController,
+                              itemCount: filteredWords.length,
+                              itemBuilder: (context, index) {
+                                final word = filteredWords[index];
+                                return ListTile(
+                                  title: Text(word.word.capitalize()),
+                                  subtitle: Text(word.category.capitalize()),
+                                  onTap: () {
+                                    Navigator.pop(context); // bottomSheet yopish
+                                    showVideoDialog(context, word);
+                                  },
+                                );
+                              },
+                            ),
+                  ),
+                ],
+              ),
             ),
-          ),
+      ),
     );
   }
 }

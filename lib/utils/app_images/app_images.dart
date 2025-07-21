@@ -78,6 +78,5 @@ List<String> names = [
   'Maktab',
   'Vaqt va fasllar',
   'Sport',
-  'Tabiyat hodisalari',
+  'Tabiat hodisalari',
 ];
-// Huquq, Raqamlar, His tuyg'ular, Busines

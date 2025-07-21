@@ -26,9 +26,9 @@ class _TranslatorScreenState extends State<TranslatorScreen> {
   recordAudio() async {
     if (await record.hasPermission()) {
       await record.start(const RecordConfig(), path: DateTime.now().toString());
-      final stream = await record.startStream(
-        const RecordConfig(encoder: AudioEncoder.pcm16bits),
-      );
+      // final stream = await record.startStream(
+      //   const RecordConfig(encoder: AudioEncoder.pcm16bits),
+      // );
     }
   }
 

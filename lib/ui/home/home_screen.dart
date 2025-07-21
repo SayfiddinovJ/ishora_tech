@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:ishora_tech/data/models/word_model.dart';
 import 'package:ishora_tech/routes/app_route.dart';
 import 'package:ishora_tech/ui/drawer/drawer_screen.dart';
+import 'package:ishora_tech/ui/recorder.dart';
 import 'package:ishora_tech/ui/widgets/main_button.dart';
 import 'package:ishora_tech/ui/widgets/my_snack_bar.dart';
 import 'package:ishora_tech/ui/widgets/search_sheet.dart';
@@ -29,10 +31,21 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    loadAndPlayRandomWord();
+    loadAndPlayRandomWord(context);
   }
 
-  Future<void> loadAndPlayRandomWord() async {
+  Future<void> loadAndPlayRandomWord(context) async {
+    // final listener =
+    InternetConnection().onStatusChange.listen((InternetStatus status) {
+      switch (status) {
+        case InternetStatus.connected:
+          // The internet is now connected
+          break;
+        case InternetStatus.disconnected:
+          mySnackBar(context, 'Internet mavjud emas!');
+          break;
+      }
+    });
     final String response = await rootBundle.loadString(
       'assets/word/word.json',
     );
@@ -64,6 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
         });
       }
     });
+    setState(() {});
   }
 
   @override
@@ -85,134 +99,144 @@ class _HomeScreenState extends State<HomeScreen> {
       body: RefreshIndicator(
         color: AppColors.backgroundColor,
         onRefresh: () async {
-          return loadAndPlayRandomWord();
+          return loadAndPlayRandomWord(context);
         },
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          padding: EdgeInsets.symmetric(horizontal: 10.w),
-          child: Column(
-            children: [
-              10.ph,
-              InkWell(
-                borderRadius: BorderRadius.circular(10.r),
-                onTap: () {
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    useSafeArea: true,
-                    backgroundColor: AppColors.backgroundColor,
-                    builder: (_) => SearchSheet(),
-                  );
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 5.h),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10.r),
-                    boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 2)],
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.search),
-                      Text(
-                        ' Qidiruv',
-                        style: TextStyle(color: Colors.grey, fontSize: 18.sp),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              10.ph,
-              Row(
-                children: [
-                  MainButton(
-                    title: 'Tarjimon',
-                    icon: Icons.translate,
-                    onTap: () {
-                      // Navigator.pushNamed(context, Routes.translator);
-                      mySnackBar(context, 'Sahifa hali mavjud emas');
-                    },
-                    color: AppColors.backgroundColor,
-                  ),
-                  10.pw,
-                  MainButton(
-                    title: 'To\'plamlar',
-                    icon: Icons.folder_copy_outlined,
-                    onTap: () {
-                      Navigator.pushNamed(context, Routes.category);
-                    },
-                    color: Colors.white,
-                  ),
-                ],
-              ),
-              15.ph,
-              selectedWord == null
-                  ? Padding(
-                    padding: EdgeInsets.all(8.w),
-                    child: const VideoShimmer(),
-                  )
-                  : Container(
-                    padding: EdgeInsets.all(12.w),
-                    margin: EdgeInsets.all(5.w),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: EdgeInsets.symmetric(horizontal: 10.w),
+            child: Column(
+              children: [
+                10.ph,
+                InkWell(
+                  borderRadius: BorderRadius.circular(10.r),
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      useSafeArea: true,
+                      backgroundColor: AppColors.backgroundColor,
+                      builder: (_) => SearchSheet(),
+                    );
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 5.h),
                     decoration: BoxDecoration(
-                      color: AppColors.backgroundColor,
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(10.r),
+                      boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 2)],
                     ),
-                    child: Column(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        AspectRatio(
-                          aspectRatio: _controller.value.aspectRatio,
-                          child: VideoPlayer(_controller),
-                        ),
-                        10.ph,
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(100.r),
-                          ),
-                          child: IconButton(
-                            icon: Icon(
-                              _controller.value.isPlaying
-                                  ? Icons.pause
-                                  : Icons.play_arrow,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _controller.value.isPlaying
-                                    ? _controller.pause()
-                                    : _controller.play();
-                              });
-                            },
-                          ),
-                        ),
-                        10.ph,
-                        Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.all(12.w),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10.r),
-                          ),
-                          child: Column(
-                            children: [
-                              Text(
-                                selectedWord!.word,
-                                style: TextStyle(fontWeight: FontWeight.w700),
-                              ),
-                              const Divider(),
-                              Text(
-                                'Ta\'rif: ${selectedWord!.definition}',
-                                style: TextStyle(fontWeight: FontWeight.w700),
-                              ),
-                            ],
-                          ),
+                        Icon(Icons.search),
+                        Text(
+                          ' Qidiruv',
+                          style: TextStyle(color: Colors.grey, fontSize: 18.sp),
                         ),
                       ],
                     ),
                   ),
-              15.ph,
-            ],
+                ),
+                10.ph,
+                Row(
+                  children: [
+                    MainButton(
+                      title: 'Tarjimon',
+                      icon: Icons.translate,
+                      onTap: () {
+                        // Navigator.pushNamed(context, Routes.translator);
+                        // mySnackBar(context, 'Sahifa hali mavjud emas');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ChatScreen()),
+                        );
+                      },
+                      color: AppColors.backgroundColor,
+                    ),
+                    10.pw,
+                    MainButton(
+                      title: 'To\'plamlar',
+                      icon: Icons.folder_copy_outlined,
+                      onTap: () {
+                        Navigator.pushNamed(context, Routes.category);
+                      },
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
+                15.ph,
+                selectedWord == null
+                    ? Padding(
+                      padding: EdgeInsets.all(8.w),
+                      child: const VideoShimmer(),
+                    )
+                    : Container(
+                      padding: EdgeInsets.all(12.w),
+                      margin: EdgeInsets.all(5.w),
+                      decoration: BoxDecoration(
+                        color: AppColors.backgroundColor,
+                        borderRadius: BorderRadius.circular(10.r),
+                      ),
+                      child: Column(
+                        children: [
+                          AspectRatio(
+                            aspectRatio: _controller.value.aspectRatio,
+                            child: VideoPlayer(_controller),
+                          ),
+                          10.ph,
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(100.r),
+                            ),
+                            child: IconButton(
+                              icon: Icon(
+                                _controller.value.isPlaying
+                                    ? Icons.pause
+                                    : Icons.play_arrow,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _controller.value.isPlaying
+                                      ? _controller.pause()
+                                      : _controller.play();
+                                });
+                              },
+                            ),
+                          ),
+                          10.ph,
+                          Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(12.w),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10.r),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  selectedWord!.word.capitalize(),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 18.sp,
+                                  ),
+                                ),
+                                const Divider(),
+                                Text(
+                                  'Ta\'rif: ${selectedWord!.definition}',
+                                  style: TextStyle(fontWeight: FontWeight.w700),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                15.ph,
+              ],
+            ),
           ),
         ),
       ),
