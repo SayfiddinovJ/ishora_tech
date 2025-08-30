@@ -1,5 +1,9 @@
-class TranslatorEvent {
-  final String filePath;
+class TranslatorEvent {}
 
-  TranslatorEvent({required this.filePath});
-}
+class StartRecordingEvent extends TranslatorEvent {}
+
+class StopRecordingAndSendEvent extends TranslatorEvent {}
+
+class RecordStopEvent extends TranslatorEvent {}
+
+class ClearMessagesEvent extends TranslatorEvent {}

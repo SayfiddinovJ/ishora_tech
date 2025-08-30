@@ -7,7 +7,6 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
 import 'package:ishora_tech/data/models/word_model.dart';
 import 'package:ishora_tech/routes/app_route.dart';
 import 'package:ishora_tech/ui/drawer/drawer_screen.dart';
-import 'package:ishora_tech/ui/recorder.dart';
 import 'package:ishora_tech/ui/widgets/main_button.dart';
 import 'package:ishora_tech/ui/widgets/my_snack_bar.dart';
 import 'package:ishora_tech/ui/widgets/search_sheet.dart';
@@ -142,15 +141,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 Row(
                   children: [
                     MainButton(
-                      title: 'Tarjimon',
+                      title: 'Ovozni matnga o\'girish',
                       icon: Icons.translate,
                       onTap: () {
-                        // Navigator.pushNamed(context, Routes.translator);
-                        // mySnackBar(context, 'Sahifa hali mavjud emas');
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ChatScreen()),
-                        );
+                        Navigator.pushNamed(context, Routes.stt);
                       },
                       color: AppColors.backgroundColor,
                     ),

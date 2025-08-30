@@ -20,7 +20,6 @@ dependencies:
   shimmer: ^3.0.0
   share_plus: ^11.0.0
   in_app_review: ^2.0.10
-  dio: ^5.8.0+1
   record: ^6.0.0
   path_provider: ^2.1.5
   internet_connection_checker_plus: ^2.7.2
