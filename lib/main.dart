@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:ishora_tech/bloc/translator/translator_bloc.dart';
 import 'package:ishora_tech/bloc/word/word_bloc.dart';
 import 'package:ishora_tech/data/storage/storage_repo.dart';
@@ -10,9 +11,15 @@ import 'package:ishora_tech/routes/app_route.dart';
 import 'package:ishora_tech/service/translator_service.dart';
 import 'package:ishora_tech/service/word_service.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  StorageRepository.getInstance();
+
+  // final requestConfig = RequestConfiguration(
+  //   testDeviceIds: ['80AB058242EAD25AA81DE8A15655AC70'],
+  // );
+  // await MobileAds.instance.updateRequestConfiguration(requestConfig);
+  await MobileAds.instance.initialize();
+  await StorageRepository.getInstance();
   runApp(Main(service: WordService(), translatorService: TranslatorService()));
 }
 

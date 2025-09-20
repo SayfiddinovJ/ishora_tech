@@ -1,9 +1,9 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:ishora_tech/ad_helper.dart';
 import 'package:ishora_tech/data/models/word_model.dart';
 import 'package:ishora_tech/routes/app_route.dart';
 import 'package:ishora_tech/ui/drawer/drawer_screen.dart';
@@ -14,6 +14,7 @@ import 'package:ishora_tech/ui/widgets/shimmer.dart';
 import 'package:ishora_tech/utils/app_colors/app_colors.dart';
 import 'package:ishora_tech/utils/extensions/extensions.dart';
 import 'package:video_player/video_player.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -26,25 +27,41 @@ class _HomeScreenState extends State<HomeScreen> {
   late VideoPlayerController _controller;
   bool isVideoFinished = false;
   WordModel? selectedWord;
+  BannerAd? bannerAd;
 
   @override
   void initState() {
     super.initState();
+    BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdClicked: (ad) {
+          setState(() {
+            bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          debugPrint('Failed to load banner ad: ${error.message}');
+          ad.dispose();
+        },
+      ),
+    ).load();
     loadAndPlayRandomWord(context);
   }
 
   Future<void> loadAndPlayRandomWord(context) async {
-    // final listener =
-    InternetConnection().onStatusChange.listen((InternetStatus status) {
-      switch (status) {
-        case InternetStatus.connected:
-          // The internet is now connected
-          break;
-        case InternetStatus.disconnected:
-          mySnackBar(context, 'Internet mavjud emas!');
-          break;
-      }
-    });
+    final List<ConnectivityResult> connectivityResult =
+        await (Connectivity().checkConnectivity());
+
+    // This condition is for demo purposes only to explain every connection type.
+    // Use conditions which work for your requirements.
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi)) {
+    } else {
+      mySnackBar(context, 'Internet mavjud emas!');
+    }
     final String response = await rootBundle.loadString(
       'assets/word/word.json',
     );
@@ -106,6 +123,13 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: EdgeInsets.symmetric(horizontal: 10.w),
             child: Column(
               children: [
+                bannerAd == null
+                    ? SizedBox()
+                    : SizedBox(
+                      height: bannerAd!.size.height.toDouble(),
+                      width: bannerAd!.size.width.toDouble(),
+                      child: AdWidget(ad: bannerAd!),
+                    ),
                 10.ph,
                 InkWell(
                   borderRadius: BorderRadius.circular(10.r),

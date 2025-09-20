@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:in_app_review/in_app_review.dart';
+import 'package:ishora_tech/ui/widgets/my_snack_bar.dart';
 import 'package:ishora_tech/utils/app_colors/app_colors.dart';
 import 'package:ishora_tech/utils/app_images/app_images.dart';
 import 'package:ishora_tech/utils/extensions/extensions.dart';
@@ -82,14 +83,19 @@ class DrawerScreen extends StatelessWidget {
                     Navigator.pop(context);
                     final InAppReview inAppReview = InAppReview.instance;
                     if (await inAppReview.isAvailable()) {
-                      inAppReview.requestReview();
+                      await inAppReview.requestReview();
+                    } else if (context.mounted) {
+                      mySnackBar(
+                        context,
+                        'Siz allaqachon ilovamizni baholadingiz!',
+                      );
                     }
                   },
                 ),
                 const Spacer(),
                 Center(
                   child: Text(
-                    'Ilova versiyasi: 1.0.4',
+                    'Ilova versiyasi: 1.0.5',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

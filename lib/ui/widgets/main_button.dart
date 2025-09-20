@@ -41,6 +41,7 @@ class MainButton extends StatelessWidget {
                 10.pw,
                 Text(
                   title,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     color: color == Colors.white ? Colors.black : Colors.white,
                     fontSize: 16.sp,
