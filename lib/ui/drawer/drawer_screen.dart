@@ -95,7 +95,7 @@ class DrawerScreen extends StatelessWidget {
                 const Spacer(),
                 Center(
                   child: Text(
-                    'Ilova versiyasi: 1.0.5',
+                    'Ilova versiyasi: 1.0.9',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

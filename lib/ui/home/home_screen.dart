@@ -8,7 +8,6 @@ import 'package:ishora_tech/data/models/word_model.dart';
 import 'package:ishora_tech/routes/app_route.dart';
 import 'package:ishora_tech/ui/drawer/drawer_screen.dart';
 import 'package:ishora_tech/ui/widgets/main_button.dart';
-import 'package:ishora_tech/ui/widgets/my_snack_bar.dart';
 import 'package:ishora_tech/ui/widgets/search_sheet.dart';
 import 'package:ishora_tech/ui/widgets/shimmer.dart';
 import 'package:ishora_tech/utils/app_colors/app_colors.dart';
@@ -60,7 +59,36 @@ class _HomeScreenState extends State<HomeScreen> {
     if (connectivityResult.contains(ConnectivityResult.mobile) ||
         connectivityResult.contains(ConnectivityResult.wifi)) {
     } else {
-      mySnackBar(context, 'Internet mavjud emas!');
+      showDialog(
+        context: context,
+        builder:
+            (_) => AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              icon: Icon(Icons.wifi_off, color: Colors.red),
+              title: Text(
+                "Internet ulanmagan",
+                overflow: TextOverflow.ellipsis,
+              ),
+              content: Text(
+                "Iltimos, internetni yoqing. Aks holda ba'zi funksiyalar ishlamaydi.",
+                style: TextStyle(fontSize: 15),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    loadAndPlayRandomWord(context);
+                  },
+                  child: Text(
+                    "Qayta tekshirish",
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+      );
     }
     final String response = await rootBundle.loadString(
       'assets/word/word.json',
